@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+
+{% block mycss %}
+<style>
+    html {
+    scroll-behavior: smooth;
+    }
+
+
+    a.one:link {color:#ff0000;text-decoration:none;}
+    a.one:hover {font-size:150%;}
+
+    .full-height {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    height: 100%;
+    }
+
+
+    .img-fluid {
+    max-width: 100%;
+    height: auto;
+    }
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<title>{% block title %} The Technocrat | Home {% endblock title %}</title>
+
+
+
+
+<div class="container">
+
+    {% load static %}
+    <div class="full-height" ><img class="img-fluid" src="{% static 'images/backgimg.gif' %}" alt="Be patient..." /></div>
+        <a href="#blog_section1" class="one">
+            <img src="https://www.intactsoftware.com/wp-content/themes/intact2019/img/scroll.svg"  alt=""> <span class="text">Scroll down<span> for more</span></span>
+        </a>
+
+    <a name="blog_section1"></a>
+    <div class="row row-cols-1 row-cols-md-2">
+
+        <!-- Blog Entries Column -->
+        {% for post in post_list %}
+        <div class="col mt-3">
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+
+                    <p class="card-text">{% autoescape off %}{{post.content|slice:":200" }}{% endautoescape %}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+{% endfor %}
+    </div>
+</div>
+{%endblock%}
